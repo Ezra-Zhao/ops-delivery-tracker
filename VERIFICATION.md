@@ -104,3 +104,10 @@ open post-handover actions remaining: 0
   (per-site milestone counts and a forecast-dated milestone set); a
   capacity-quantity forecast model is not implemented and is not claimed.
 - Local repository only: git-initialised, no remote, nothing pushed.
+
+## Parent re-verification (2026-11-05, after builder handoff)
+
+- Independent re-run by the coordinating agent: python3 -m pytest tests/ -q -> 23 passed (0.21s-0.28s across two runs).
+- Found and fixed one reproducibility defect: scripts/build_db.py failed on an existing database (UNIQUE constraint on site.id). It now unlinks the target file first; verified seeded twice in a row (20 tickets each time) and the executive report regenerated with identical headline figures (SLA 75.0%, MTTR 26.16h, milestone achievement 80.0%, 4 open of 20 tickets, 2 stale milestones).
+- scripts/demo_handover.py re-run: exception path exercised with approve=False -> exception_rejected, record returns to under_review with reason and expiry kept, then sign-off and post-handover action created and completed.
+- Local build only. Not pushed; git remote -v is empty.

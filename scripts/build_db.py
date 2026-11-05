@@ -6,6 +6,7 @@ from odt.seed import seed_db
 if __name__ == "__main__":
     path = sys.argv[1] if len(sys.argv) > 1 else str(pathlib.Path(__file__).resolve().parent.parent / "data" / "demo.db")
     pathlib.Path(path).parent.mkdir(parents=True, exist_ok=True)
+    pathlib.Path(path).unlink(missing_ok=True)  # rebuild from scratch: re-runnable
     conn = init_db(connect(path))
     seed_db(conn)
     n = conn.execute("SELECT COUNT(*) FROM ticket").fetchone()[0]
